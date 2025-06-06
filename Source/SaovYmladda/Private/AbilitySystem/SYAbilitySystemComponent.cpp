@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright © 2025 Maksymilian Kafka. All Rights Reserved.
 
 
 #include "AbilitySystem/SYAbilitySystemComponent.h"

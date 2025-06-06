@@ -1,29 +1,53 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright © 2025 Maksymilian Kafka. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "SYCharacterBase.generated.h"
 
-UCLASS()
-class SAOVYMLADDA_API ASYCharacterBase : public ACharacter
+class USYAttributeSet;
+class USYAbilitySystemComponent;
+
+/**
+ * The base class for all characters in SaovYmladda.
+ * It is an Abstract class, meaning it cannot be instantiated directly in the world.
+ * It's designed to be subclassed by player and enemy characters.
+ * Implements the IAbilitySystemInterface to work with the Gameplay Ability System.
+ */
+UCLASS( Abstract )
+class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	/**
+	 * Default Constructor
+	 * Sets up AbilitySystemComponent and AttributeSet
+	 */
 	ASYCharacterBase();
 
+	//~ Begin IAbilitySystemInterface
+	/**
+	 * AbilitySystemComponent Getter.
+	 * @return A pointer to this character's AbilitySystemComponent.
+	 */
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	//~ End IAbilitySystemInterface
+
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	/**
+	 * The character's Ability System Component. 
+	 * Responsible for handling abilities and gameplay effects.
+	 */
+	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = "Abilities" )
+	TObjectPtr<USYAbilitySystemComponent> AbilitySystemComponent;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	/**
+	 * The character's Attribute Set.
+	 * Contains attributes like Health, Stamina, etc.
+	 */
+	UPROPERTY()
+	TObjectPtr<USYAttributeSet> AttributeSet;
 };

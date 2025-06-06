@@ -1,34 +1,21 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright © 2025 Maksymilian Kafka. All Rights Reserved.
 
 
 #include "Characters/SYCharacterBase.h"
 
-// Sets default values
+#include "AbilitySystem/SYAbilitySystemComponent.h"
+#include "AbilitySystem/SYAttributeSet.h"
+
 ASYCharacterBase::ASYCharacterBase()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	AbilitySystemComponent = CreateDefaultSubobject<USYAbilitySystemComponent>( "AbilitySystemComponent" );
+	AbilitySystemComponent->SetIsReplicated( true );
+	AbilitySystemComponent->SetReplicationMode( EGameplayEffectReplicationMode::Minimal );
 
+	AttributeSet = CreateDefaultSubobject<USYAttributeSet>( "AttributeSet" );
 }
 
-// Called when the game starts or when spawned
-void ASYCharacterBase::BeginPlay()
+UAbilitySystemComponent* ASYCharacterBase::GetAbilitySystemComponent() const
 {
-	Super::BeginPlay();
-	
+	return AbilitySystemComponent;
 }
-
-// Called every frame
-void ASYCharacterBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void ASYCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
