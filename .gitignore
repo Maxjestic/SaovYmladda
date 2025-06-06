@@ -1,0 +1,54 @@
+# .gitignore for Unreal Engine 5 Projects
+# ----------------------------------------
+# This file prevents large, generated, and user-specific files from being
+# committed to the source repository.
+
+# Unreal Engine Generated Files
+# -----------------------------
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+Script/
+obj/
+
+# Visual Studio / Rider Files
+# ---------------------------
+# Rider
+.idea/
+*.sln
+
+# Visual Studio
+.vs/
+*.VC.db
+*.suo
+*.user
+*.userprefs
+*.useroos
+
+# Source Control History
+# ----------------------
+History/
+
+# Build files
+*.bak
+*.log
+*.patch
+*.PDB
+*.TMP
+*.tmp
+
+# OS-specific files
+# -----------------
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+.swp
+*~
