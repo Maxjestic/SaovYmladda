@@ -12,11 +12,10 @@ class USYAbilitySystemComponent;
 
 /**
  * The base class for all characters in SaovYmladda.
- * It is an Abstract class, meaning it cannot be instantiated directly in the world.
  * It's designed to be subclassed by player and enemy characters.
  * Implements the IAbilitySystemInterface to work with the Gameplay Ability System.
  */
-UCLASS( Abstract )
+UCLASS( Abstract, Blueprintable )
 class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
