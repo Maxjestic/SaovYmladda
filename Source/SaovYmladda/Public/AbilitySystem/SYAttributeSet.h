@@ -52,14 +52,13 @@ public:
 	ATTRIBUTE_ACCESSORS( USYAttributeSet, Stamina )
 
 protected:
-
 	/**
 	 * The functions below are called on clients when the attribute is replicated.
 	 */
-	
+
 	UFUNCTION()
 	void OnRep_MaxHealth( const FGameplayAttributeData& OldMaxHealth ) const;
-	
+
 	UFUNCTION()
 	void OnRep_Health( const FGameplayAttributeData& OldHealth ) const;
 

@@ -21,22 +21,21 @@ class UPlayerInputReceiverInterface : public UInterface
 class SAOVYMLADDA_API IPlayerInputReceiverInterface
 {
 	GENERATED_BODY()
-	
+
 public:
-	
 	/** Handles the dodge input action. Called from the Player Controller. */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Input")
+	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
 	void RequestDodge();
 
 	/** Handles the jump input action. Called from the Player Controller. */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Input")
+	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
 	void RequestJump();
 
 	/** Handles the look input action. Called from the Player Controller. */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Input")
-	void RequestLook(const FInputActionValue& Value);
-	
+	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
+	void RequestLook( const FInputActionValue& Value );
+
 	/** Handles the move input action. Called from the Player Controller. */
-	UFUNCTION(BlueprintNativeEvent, Category = "Player Input")
-	void RequestMove(const FInputActionValue& Value);
+	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
+	void RequestMove( const FInputActionValue& Value );
 };

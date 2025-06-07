@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "SYCharacterBase.generated.h"
 
+class UGameplayAbility;
+class UGameplayEffect;
 class USYAttributeSet;
 class USYAbilitySystemComponent;
 
@@ -22,10 +24,11 @@ class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySyste
 
 public:
 	/**
-	 * Default Constructor
-	 * Sets up AbilitySystemComponent and AttributeSet
+	 * Default Constructor.
+	 * Sets up AbilitySystemComponent and AttributeSet.
 	 */
 	ASYCharacterBase();
+
 
 	//~ Begin IAbilitySystemInterface
 	/**
@@ -35,7 +38,21 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ End IAbilitySystemInterface
 
+	//~ Begin APawn Interface
+	virtual void PossessedBy( AController* NewController ) override;
+	//~ End APawn Interface
+
 protected:
+	/**
+	 * Applies given effect to self 
+	 * @param GameplayEffectClass Class of the Effect to apply
+	 * @param Level Level for the effect
+	 */
+	void ApplyEffectToSelf( const TSubclassOf<UGameplayEffect>& GameplayEffectClass, const float Level = 1.f ) const;
+
+	/** Initializes default attributes when the game starts */
+	void InitializeDefaultAttributes() const;
+
 	/**
 	 * The character's Ability System Component. 
 	 * Responsible for handling abilities and gameplay effects.
@@ -49,4 +66,16 @@ protected:
 	 */
 	UPROPERTY()
 	TObjectPtr<USYAttributeSet> AttributeSet;
+
+	/** A list of abilities to grant to this character on startup. */
+	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	TArray<TSubclassOf<UGameplayAbility>> DefaultAbilities;
+
+	/** The Gameplay Effect to apply for initializing primary attributes. */
+	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	TSubclassOf<UGameplayEffect> PrimaryAttributesEffect;
+
+	/** The Gameplay Effect to apply for initializing vital attributes. */
+	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	TSubclassOf<UGameplayEffect> VitalAttributesEffect;
 };

@@ -13,5 +13,4 @@ UCLASS()
 class SAOVYMLADDA_API USYAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
 };
