@@ -52,14 +52,14 @@ void ASYPlayerController::SetupInputComponent()
 	if ( JumpAction )
 	{
 		EnhancedInputComponent->BindAction( JumpAction,
-		                                    ETriggerEvent::Started,
+		                                    ETriggerEvent::Triggered,
 		                                    this,
 		                                    &ASYPlayerController::HandleJump );
 	}
 	if ( DodgeAction )
 	{
 		EnhancedInputComponent->BindAction( DodgeAction,
-		                                    ETriggerEvent::Started,
+		                                    ETriggerEvent::Triggered,
 		                                    this,
 		                                    &ASYPlayerController::HandleDodge );
 	}
