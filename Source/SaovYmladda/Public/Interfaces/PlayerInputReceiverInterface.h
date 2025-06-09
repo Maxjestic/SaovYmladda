@@ -15,8 +15,9 @@ class UPlayerInputReceiverInterface : public UInterface
 };
 
 /**
- * The C++ interface that defines the behavioral contract for receiving player input.
- * Implemented by the Player Character. Called by the Player Controller.
+ * The Interface that defines possible reactions to input.
+ *
+ * Decouples Player Controller and controlled Pawn.
  */
 class SAOVYMLADDA_API IPlayerInputReceiverInterface
 {

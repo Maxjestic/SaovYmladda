@@ -7,11 +7,11 @@
 #include "SYGameMode.generated.h"
 
 /**
- * The main GameMode for the SaovYmladda project.
- * It inherits from the lightweight AGameModeBase and is responsible for defining the
- * core rules and default classes for the game, such as the Player Controller and Pawn.
+ * The project-specific Game Mode for SaovYmladda.
+ *
+ * This class serves as the base for Game Mode.
  */
-UCLASS( Abstract, Blueprintable )
+UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API ASYGameMode : public AGameModeBase
 {
 	GENERATED_BODY()

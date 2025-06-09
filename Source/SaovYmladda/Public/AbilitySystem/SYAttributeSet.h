@@ -14,7 +14,9 @@ GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 /**
- * Defines the set of core attributes for characters in SaovYmladda.
+ * The project-specific Attribute Set for SaovYmladda.
+ *
+ * Defines the set of core attributes for characters.
  * This class holds attributes like Health, Stamina, etc., which are managed by the Gameplay Ability System.
  */
 UCLASS()

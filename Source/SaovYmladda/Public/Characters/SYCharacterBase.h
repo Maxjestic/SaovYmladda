@@ -7,17 +7,20 @@
 #include "GameFramework/Character.h"
 #include "SYCharacterBase.generated.h"
 
+class UAttributeSet;
 class UGameplayAbility;
 class UGameplayEffect;
 class USYAttributeSet;
 class USYAbilitySystemComponent;
 
 /**
- * The base class for all characters in SaovYmladda.
- * It's designed to be subclassed by player and enemy characters.
+ * The base class for all Characters in SaovYmladda.
+ * 
+ * It's designed to be subclassed by other Characters.
+ * It promises the setup for Gameplay Ability System like initialization of Attributes and Abilities.
  * Implements the IAbilitySystemInterface to work with the Gameplay Ability System.
  */
-UCLASS( Abstract, Blueprintable )
+UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
@@ -31,16 +34,14 @@ public:
 
 
 	//~ Begin IAbilitySystemInterface
+
 	/**
 	 * AbilitySystemComponent Getter.
 	 * @return A pointer to this character's AbilitySystemComponent.
 	 */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	//~ End IAbilitySystemInterface
 
-	//~ Begin APawn Interface
-	virtual void PossessedBy( AController* NewController ) override;
-	//~ End APawn Interface
+	//~ End IAbilitySystemInterface
 
 protected:
 	/**
@@ -50,32 +51,42 @@ protected:
 	 */
 	void ApplyEffectToSelf( const TSubclassOf<UGameplayEffect>& GameplayEffectClass, const float Level = 1.f ) const;
 
+	/** Initializes ASC and AS when the game starts */
+	virtual void InitializeAbilityActorInfo();
+
 	/** Initializes default attributes when the game starts */
-	void InitializeDefaultAttributes() const;
+	virtual void InitializeDefaultAttributes() const;
+
+	/** Adds default abilities when the game starts */
+	void AddDefaultAbilities() const;
 
 	/**
 	 * The character's Ability System Component. 
 	 * Responsible for handling abilities and gameplay effects.
+	 * For PlayerCharacter it exists in PlayerState.
+	 * For AI Characters it exists directly on the Character.
 	 */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = "Abilities" )
-	TObjectPtr<USYAbilitySystemComponent> AbilitySystemComponent;
+	UPROPERTY( BlueprintReadOnly, VisibleAnywhere, Category = "Abilities" )
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	/**
 	 * The character's Attribute Set.
 	 * Contains attributes like Health, Stamina, etc.
+	 * For PlayerCharacter, it exists on PlayerState.
+	 * For AI Characters it exists directly on the Character.
 	 */
 	UPROPERTY()
-	TObjectPtr<USYAttributeSet> AttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet;
 
 	/** A list of abilities to grant to this character on startup. */
-	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
 	TArray<TSubclassOf<UGameplayAbility>> DefaultAbilities;
 
 	/** The Gameplay Effect to apply for initializing primary attributes. */
-	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
 	TSubclassOf<UGameplayEffect> PrimaryAttributesEffect;
 
 	/** The Gameplay Effect to apply for initializing vital attributes. */
-	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Abilities" )
+	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
 	TSubclassOf<UGameplayEffect> VitalAttributesEffect;
 };

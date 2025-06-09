@@ -3,10 +3,13 @@
 
 #include "Characters/Player/SYPlayerCharacter.h"
 
+#include "AbilitySystemComponent.h"
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
+#include "Core/FSYGameplayTags.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Player/SYPlayerState.h"
 
 ASYPlayerCharacter::ASYPlayerCharacter()
 {
@@ -27,20 +30,32 @@ ASYPlayerCharacter::ASYPlayerCharacter()
 	GetCharacterMovement()->RotationRate = FRotator( 0.0f, 500.0f, 0.0f );
 }
 
+void ASYPlayerCharacter::PossessedBy( AController* NewController )
+{
+	Super::PossessedBy( NewController );
+
+	InitializeAbilityActorInfo();
+	InitializeDefaultAttributes();
+	AddDefaultAbilities();
+}
+
 void ASYPlayerCharacter::RequestDodge_Implementation()
 {
-	// Dodging is possible only in combat
+	// TODO: Dodging when in combat
 	if ( GEngine )
 	{
-		GEngine->AddOnScreenDebugMessage( 1, 3, FColor::Red, "RequestDodge Done" );
+		GEngine->AddOnScreenDebugMessage( 1, 3, FColor::Red, "RequestDodge" );
 	}
 }
 
 void ASYPlayerCharacter::RequestJump_Implementation()
 {
+	// TODO: Roll if in combat
+
 	// Jump if not in combat
-	Jump();
-	// Roll if in combat
+	const FGameplayTag JumpAbilityTag = FSYGameplayTags::Get().Abilities_Action_Jump;
+	const FGameplayTagContainer GameplayTags( JumpAbilityTag );
+	AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags );
 }
 
 void ASYPlayerCharacter::RequestLook_Implementation( const FInputActionValue& Value )
@@ -62,4 +77,30 @@ void ASYPlayerCharacter::RequestMove_Implementation( const FInputActionValue& Va
 
 	AddMovementInput( ForwardDirection, MovementVector.Y );
 	AddMovementInput( RightDirection, MovementVector.X );
+}
+
+void ASYPlayerCharacter::InitializeAbilityActorInfo()
+{
+	ASYPlayerState* SYPlayerState = GetPlayerState<ASYPlayerState>();
+	ensure( SYPlayerState );
+	SYPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo( SYPlayerState, this );
+
+	AbilitySystemComponent = SYPlayerState->GetAbilitySystemComponent();
+	AttributeSet = SYPlayerState->GetAttributeSet();
+}
+
+void ASYPlayerCharacter::InitializeDefaultAttributes() const
+{
+	ApplyEffectToSelf( PrimaryAttributesEffect );
+	ApplyEffectToSelf( VitalAttributesEffect );
+}
+
+void ASYPlayerCharacter::OnMovementModeChanged( EMovementMode PrevMovementMode, uint8 PreviousCustomMode )
+{
+	Super::OnMovementModeChanged( PrevMovementMode, PreviousCustomMode );
+
+	if ( UCharacterMovementComponent* MovementComp = GetCharacterMovement() )
+	{
+		MovementComp->bOrientRotationToMovement = !MovementComp->IsFalling();
+	}
 }

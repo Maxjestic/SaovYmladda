@@ -12,10 +12,11 @@ class USpringArmComponent;
 
 /**
  * The base class for the Player Character in SaovYmladda.
+ * 
  * It's designed to be a base for Player Character Blueprint.
- * Implements the IPlayerInputReceiverInterface to work with the Player Controller.
+ * It Implements the IPlayerInputReceiverInterface to work with the Player Controller.
  */
-UCLASS( Abstract, Blueprintable )
+UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API ASYPlayerCharacter : public ASYCharacterBase, public IPlayerInputReceiverInterface
 {
 	GENERATED_BODY()
@@ -27,7 +28,16 @@ public:
 	 */
 	ASYPlayerCharacter();
 
+	//~ Begin APawn Interface
+
+	/** Calls initialization functions for GAS */
+	virtual void PossessedBy( AController* NewController ) override;
+
+	//~ End APawn Interface
+
+
 	//~ Begin IPlayerInputReceiverInterface
+
 	/** TODO: Trigger Dodge Gameplay Ability */
 	virtual void RequestDodge_Implementation() override;
 
@@ -42,14 +52,35 @@ public:
 
 	/** Handles character movement input and applies movement relative to camera rotation. */
 	virtual void RequestMove_Implementation( const FInputActionValue& Value ) override;
+
 	//~ End IPlayerInputReceiverInterface
 
+protected:
+	//~ Begin ASYCharacterBase Interface
+
+	/** Adds reference to PlayerState's ASC and AS */
+	virtual void InitializeAbilityActorInfo() override;
+
+	/** Applies Effects that initialize default Attributes */
+	virtual void InitializeDefaultAttributes() const override;
+
+	//~ End ASYCharacterBase Interface
+
 private:
+	//~ Begin ACharacter Interface
+
+	/** Disables orientation to movement when the character is in the air */
+	UFUNCTION()
+	virtual void OnMovementModeChanged( EMovementMode PrevMovementMode, uint8 PreviousCustomMode ) override;
+
+	//~ Begin ACharacter Interface
+
+
 	/** The camera boom positioning the camera behind the character */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true") )
+	UPROPERTY( BlueprintReadOnly, VisibleAnywhere, Category = "Camera", meta = (AllowPrivateAccess = "true") )
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
 
 	/** The camera that follows the character */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true") )
+	UPROPERTY( BlueprintReadOnly, VisibleAnywhere, Category = "Camera", meta = (AllowPrivateAccess = "true") )
 	TObjectPtr<UCameraComponent> CameraComponent;
 };

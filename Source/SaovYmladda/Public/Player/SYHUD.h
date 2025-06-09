@@ -7,9 +7,11 @@
 #include "SYHUD.generated.h"
 
 /**
- * The main HUD for the SaovYmladda project.
+ * The project-specific HUD for SaovYmladda.
+ *
+ * This class serves as the base for HUD.
  */
-UCLASS( Abstract, Blueprintable )
+UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API ASYHUD : public AHUD
 {
 	GENERATED_BODY()

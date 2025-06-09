@@ -8,11 +8,6 @@
 
 ASYCharacterBase::ASYCharacterBase()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<USYAbilitySystemComponent>( TEXT( "AbilitySystemComponent" ) );
-	AbilitySystemComponent->SetIsReplicated( true );
-	AbilitySystemComponent->SetReplicationMode( EGameplayEffectReplicationMode::Minimal );
-
-	AttributeSet = CreateDefaultSubobject<USYAttributeSet>( TEXT( "AttributeSet" ) );
 }
 
 UAbilitySystemComponent* ASYCharacterBase::GetAbilitySystemComponent() const
@@ -20,23 +15,11 @@ UAbilitySystemComponent* ASYCharacterBase::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
-void ASYCharacterBase::PossessedBy( AController* NewController )
-{
-	Super::PossessedBy( NewController );
-
-	if ( !HasAuthority() )
-	{
-		return;
-	}
-
-	InitializeDefaultAttributes();
-}
-
 void ASYCharacterBase::ApplyEffectToSelf( const TSubclassOf<UGameplayEffect>& GameplayEffectClass,
                                           const float Level ) const
 {
-	check( IsValid(GetAbilitySystemComponent()) );
-	check( GameplayEffectClass );
+	ensureMsgf( IsValid(GetAbilitySystemComponent()), TEXT("ASYCharacterBase::ApplyEffectToSelf - ASC not valid") );
+	ensureMsgf( GameplayEffectClass, TEXT("ASYCharacterBase::ApplyEffectToSelf - GameplayEffectClass not valid") );
 
 	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
 	ContextHandle.AddSourceObject( this );
@@ -47,8 +30,21 @@ void ASYCharacterBase::ApplyEffectToSelf( const TSubclassOf<UGameplayEffect>& Ga
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget( *SpecHandle.Data.Get(), GetAbilitySystemComponent() );
 }
 
+void ASYCharacterBase::InitializeAbilityActorInfo()
+{
+	ensureMsgf( false, TEXT("InitializeAbilityActorInfo() must be implemented in the derived class. It was not.") );
+}
+
 void ASYCharacterBase::InitializeDefaultAttributes() const
 {
-	ApplyEffectToSelf( PrimaryAttributesEffect );
-	ApplyEffectToSelf( VitalAttributesEffect );
+	ensureMsgf( false, TEXT("InitializeAbilityActorInfo() must be implemented in the derived class. It was not.") );
+}
+
+void ASYCharacterBase::AddDefaultAbilities() const
+{
+	if ( !HasAuthority() ) return;
+
+	USYAbilitySystemComponent* AuraAbilitySystemComponent = CastChecked<USYAbilitySystemComponent>(
+		AbilitySystemComponent );
+	AuraAbilitySystemComponent->AddDefaultAbilities( DefaultAbilities );
 }

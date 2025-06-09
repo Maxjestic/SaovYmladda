@@ -9,10 +9,14 @@
 struct FInputActionValue;
 class UInputAction;
 class UInputMappingContext;
+
 /**
- * 
+ * The project-specific Player Controller for SaovYmladda.
+ *
+ * This class serves as the base for Player Controller.
+ * It adds Input Mapping Context and binds Input Actions to handlers which request reaction for input.
  */
-UCLASS( Abstract, Blueprintable )
+UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API ASYPlayerController : public APlayerController
 {
 	GENERATED_BODY()
@@ -27,7 +31,6 @@ protected:
 
 
 	/// --- Input Handles ---
-	/// These functions will be bound to Input Actions
 
 	/** Called for dodge input */
 	void HandleDodge();
@@ -43,7 +46,6 @@ protected:
 
 
 	/// -- Input Assets ---
-	/// Mapping Contexts and Input Actions used by Controller
 
 	/** Input Mapping Context to be used for player input. */
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input" )
