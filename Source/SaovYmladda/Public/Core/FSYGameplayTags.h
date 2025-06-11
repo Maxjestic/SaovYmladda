@@ -17,10 +17,12 @@ public:
 	/**	---Ability Tags--- **/
 
 	FGameplayTag Abilities_Action_Jump;
+	FGameplayTag Abilities_Action_Dodge;
 
 
 	/** ---State Tags--- **/
 	FGameplayTag State_Character_InAction_Jumping;
+	FGameplayTag State_Character_InAction_Dodging;
 
 private:
 	static FSYGameplayTags GameplayTags;

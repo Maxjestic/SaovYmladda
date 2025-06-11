@@ -2,3 +2,8 @@
 
 
 #include "AbilitySystem/Abilities/SYGameplayAbility.h"
+
+FGameplayTag USYGameplayAbility::GetAbilityTag() const
+{
+	return GetAssetTags().GetByIndex( 0 );
+}

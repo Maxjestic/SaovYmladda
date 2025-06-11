@@ -13,4 +13,9 @@ UCLASS( Blueprintable, Abstract )
 class SAOVYMLADDA_API USYGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
+
+protected:
+	UFUNCTION( BlueprintCallable, Category = "AbilitySystem" )
+	FGameplayTag GetAbilityTag() const;
+
 };

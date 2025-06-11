@@ -41,11 +41,10 @@ void ASYPlayerCharacter::PossessedBy( AController* NewController )
 
 void ASYPlayerCharacter::RequestDodge_Implementation()
 {
-	// TODO: Dodging when in combat
-	if ( GEngine )
-	{
-		GEngine->AddOnScreenDebugMessage( 1, 3, FColor::Red, "RequestDodge" );
-	}
+	// TODO: Limit to combat
+	const FGameplayTag DodgeAbilityTag = FSYGameplayTags::Get().Abilities_Action_Dodge;
+	const FGameplayTagContainer GameplayTags( DodgeAbilityTag );
+	AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags );
 }
 
 void ASYPlayerCharacter::RequestJump_Implementation()

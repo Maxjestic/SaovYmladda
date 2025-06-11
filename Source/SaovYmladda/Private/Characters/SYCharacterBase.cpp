@@ -5,6 +5,7 @@
 
 #include "AbilitySystem/SYAbilitySystemComponent.h"
 #include "AbilitySystem/SYAttributeSet.h"
+#include "Data/SYAbilityAnimationDataAsset.h"
 
 ASYCharacterBase::ASYCharacterBase()
 {
@@ -13,6 +14,15 @@ ASYCharacterBase::ASYCharacterBase()
 UAbilitySystemComponent* ASYCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+UAnimMontage* ASYCharacterBase::GetAnimMontageForTag_Implementation( const FGameplayTag Key )
+{
+	if ( AbilityAnimationsData )
+	{
+		return AbilityAnimationsData->AbilityAnimations.FindRef( Key );
+	}
+	return nullptr;
 }
 
 void ASYCharacterBase::ApplyEffectToSelf( const TSubclassOf<UGameplayEffect>& GameplayEffectClass,

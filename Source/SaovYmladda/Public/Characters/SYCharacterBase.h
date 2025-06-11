@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/AbilityAnimationProviderInterface.h"
 #include "SYCharacterBase.generated.h"
 
+class USYAbilityAnimationDataAsset;
 class UAttributeSet;
 class UGameplayAbility;
 class UGameplayEffect;
@@ -21,7 +23,8 @@ class USYAbilitySystemComponent;
  * Implements the IAbilitySystemInterface to work with the Gameplay Ability System.
  */
 UCLASS( Blueprintable, Abstract )
-class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySystemInterface
+class SAOVYMLADDA_API ASYCharacterBase : public ACharacter, public IAbilitySystemInterface,
+                                         public IAbilityAnimationProviderInterface
 {
 	GENERATED_BODY()
 
@@ -42,6 +45,13 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	//~ End IAbilitySystemInterface
+
+
+	//~ Begin IAbilityAnimationProviderInterface
+
+	virtual UAnimMontage* GetAnimMontageForTag_Implementation(const FGameplayTag Key) override;
+
+	//~ End IAbilityAnimationProviderInterface
 
 protected:
 	/**
@@ -89,4 +99,8 @@ protected:
 	/** The Gameplay Effect to apply for initializing vital attributes. */
 	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
 	TSubclassOf<UGameplayEffect> VitalAttributesEffect;
+
+	/** Data asset containing references to ability-specific animations. */
+	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Animations" )
+	TObjectPtr<USYAbilityAnimationDataAsset> AbilityAnimationsData;
 };
