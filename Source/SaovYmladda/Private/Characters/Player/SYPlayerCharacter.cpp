@@ -9,8 +9,6 @@
 #include "Core/FSYGameplayTags.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Player/SYHUD.h"
-#include "Player/SYPlayerController.h"
 #include "Player/SYPlayerState.h"
 
 ASYPlayerCharacter::ASYPlayerCharacter()
@@ -88,14 +86,6 @@ void ASYPlayerCharacter::InitializeAbilityActorInfo()
 
 	AbilitySystemComponent = SYPlayerState->GetAbilitySystemComponent();
 	AttributeSet = SYPlayerState->GetAttributeSet();
-
-	if (const ASYPlayerController* SYPlayerController = GetController<ASYPlayerController>())
-	{
-		if (ASYHUD* SYHUD = SYPlayerController->GetHUD<ASYHUD>())
-		{
-			SYHUD->InitOverlay( AbilitySystemComponent, AttributeSet );
-		}
-	}
 }
 
 void ASYPlayerCharacter::InitializeDefaultAttributes() const

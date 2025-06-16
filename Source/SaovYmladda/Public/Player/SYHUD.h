@@ -23,6 +23,8 @@ class SAOVYMLADDA_API ASYHUD : public AHUD
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
+
 	/**
 	 * Creates Overlay Widget Controller if it doesn't exist.
 	 * @param WidgetControllerParams - References to Models used by the Controller
@@ -30,12 +32,8 @@ public:
 	 */
 	UOverlayWidgetController* GetOverlayWidgetController( const FWidgetControllerParams& WidgetControllerParams );
 
-	/**
-	 * Initializes Overlay Widget - spawn new widget and controller and set parameters.
-	 * @param AbilitySystemComponent - HUD owner's Ability System Component
-	 * @param AttributeSet - HUD owner's Attribute Set
-	 */
-	void InitOverlay( UAbilitySystemComponent* AbilitySystemComponent, UAttributeSet* AttributeSet );
+	/** Creates Overlay Widget with proper Controller */
+	void InitOverlay();
 
 private:
 	/** View - Class used to spawn Overlay Widget */

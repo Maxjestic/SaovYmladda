@@ -3,8 +3,16 @@
 
 #include "Player/SYHUD.h"
 
+#include "Player/SYPlayerState.h"
 #include "UI/WidgetControllers/OverlayWidgetController.h"
 #include "UI/Widgets/SYUserWidget.h"
+
+void ASYHUD::BeginPlay()
+{
+	Super::BeginPlay();
+
+	InitOverlay();
+}
 
 UOverlayWidgetController* ASYHUD::GetOverlayWidgetController( const FWidgetControllerParams& WidgetControllerParams )
 {
@@ -17,14 +25,31 @@ UOverlayWidgetController* ASYHUD::GetOverlayWidgetController( const FWidgetContr
 	return OverlayWidgetController;
 }
 
-void ASYHUD::InitOverlay( UAbilitySystemComponent* AbilitySystemComponent, UAttributeSet* AttributeSet )
+void ASYHUD::InitOverlay()
 {
 	ensureMsgf( OverlayWidgetClass, TEXT("OverlayWidgetClass not set in ASYHUD blueprint.") );
 	ensureMsgf( OverlayWidgetControllerClass, TEXT("OverlayWidgetControllerClass not set in ASYHUD blueprint.") );
 
-	const FWidgetControllerParams WidgetControllerParams = FWidgetControllerParams(
-		AbilitySystemComponent,
-		AttributeSet );
+	const APlayerController* PlayerController = GetOwningPlayerController();
+	if ( PlayerController == nullptr )
+	{
+		return;
+	}
+
+	const ASYPlayerState* PlayerState = PlayerController->GetPlayerState<ASYPlayerState>();
+	if ( PlayerState == nullptr )
+	{
+		return;
+	}
+
+	UAbilitySystemComponent* ASC = PlayerState->GetAbilitySystemComponent();
+	UAttributeSet* AS = PlayerState->GetAttributeSet();
+	if ( ASC == nullptr || AS == nullptr )
+	{
+		return;
+	}
+
+	const FWidgetControllerParams WidgetControllerParams = FWidgetControllerParams( ASC, AS );
 
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController( WidgetControllerParams );
 
