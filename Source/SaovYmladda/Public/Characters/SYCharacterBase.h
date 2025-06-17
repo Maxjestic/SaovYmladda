@@ -100,6 +100,10 @@ protected:
 	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
 	TSubclassOf<UGameplayEffect> VitalAttributesEffect;
 
+	/** The Gameplay Effect to apply for stamina regeneration. */
+	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Abilities" )
+	TSubclassOf<UGameplayEffect> StaminaRegenEffect;
+
 	/** Data asset containing references to ability-specific animations. */
 	UPROPERTY( BlueprintReadOnly, EditDefaultsOnly, Category = "Animations" )
 	TObjectPtr<USYAbilityAnimationDataAsset> AbilityAnimationsData;

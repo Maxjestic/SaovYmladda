@@ -33,4 +33,8 @@ void FSYGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.State_Character_InAction_Dodging = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName( "State.Character.InAction.Dodging" ),
 		FString( "Tag added when the character is dodging" ) );
+
+	GameplayTags.State_Resources_StaminaBlocked = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName( "State.Resources.StaminaBlocked" ),
+		FString( "Tag preventing regeneration of Stamina" ) );
 }

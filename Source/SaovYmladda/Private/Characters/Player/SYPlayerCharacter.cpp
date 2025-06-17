@@ -92,6 +92,7 @@ void ASYPlayerCharacter::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf( PrimaryAttributesEffect );
 	ApplyEffectToSelf( VitalAttributesEffect );
+	ApplyEffectToSelf( StaminaRegenEffect );
 }
 
 void ASYPlayerCharacter::OnMovementModeChanged( EMovementMode PrevMovementMode, uint8 PreviousCustomMode )

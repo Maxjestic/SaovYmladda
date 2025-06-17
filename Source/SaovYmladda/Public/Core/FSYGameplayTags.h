@@ -24,6 +24,8 @@ public:
 	FGameplayTag State_Character_InAction_Jumping;
 	FGameplayTag State_Character_InAction_Dodging;
 
+	FGameplayTag State_Resources_StaminaBlocked;
+
 private:
 	static FSYGameplayTags GameplayTags;
 };

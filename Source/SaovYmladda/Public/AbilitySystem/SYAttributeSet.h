@@ -32,6 +32,17 @@ public:
 	 */
 	virtual void GetLifetimeReplicatedProps( TArray<FLifetimeProperty>& OutLifetimeProps ) const override;
 	//~ End UObject Interface
+	
+
+	//~ Begin UAttributeSet Interface
+
+	/** Handles minimum and maximum values before changing attributes */
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+	
+	//~ End UAttributeSet Interface
+	
 
 	/** The character's Max Health. */
 	UPROPERTY( BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Attributes" )

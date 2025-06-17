@@ -37,14 +37,11 @@ public:
 
 
 	//~ Begin IPlayerInputReceiverInterface
-
-	/** TODO: Trigger Dodge Gameplay Ability */
+	
+	/** Handles dodge input, tries to activate a Dodge Ability */
 	virtual void RequestDodge_Implementation() override;
 
-	/**
-	 * Calls the base ACharacter::Jump() function to start the jump action.
-	 * TODO: Change to Trigger Jump Gameplay Ability
-	 */
+	/** Handles jump input, tries to activate a Jump Ability */
 	virtual void RequestJump_Implementation() override;
 
 	/** Handles camera look input and applies it to the controller. */
