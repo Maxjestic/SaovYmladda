@@ -44,7 +44,13 @@ void ASYPlayerCharacter::RequestDodge_Implementation()
 	// TODO: Limit to combat
 	const FGameplayTag DodgeAbilityTag = FSYGameplayTags::Get().Abilities_Action_Dodge;
 	const FGameplayTagContainer GameplayTags( DodgeAbilityTag );
-	AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags );
+	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Dodge." );			
+		}
+	}
 }
 
 void ASYPlayerCharacter::RequestJump_Implementation()
@@ -54,7 +60,13 @@ void ASYPlayerCharacter::RequestJump_Implementation()
 	// Jump if not in combat
 	const FGameplayTag JumpAbilityTag = FSYGameplayTags::Get().Abilities_Action_Jump;
 	const FGameplayTagContainer GameplayTags( JumpAbilityTag );
-	AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags );
+	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Jump." );			
+		}
+	}
 }
 
 void ASYPlayerCharacter::RequestLook_Implementation( const FInputActionValue& Value )
