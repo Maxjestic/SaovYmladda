@@ -37,6 +37,9 @@ public:
 
 
 	//~ Begin IPlayerInputReceiverInterface
+
+	/** Handles attack input, tries to activate an Attack Ability */
+	virtual void RequestAttack_Implementation() override;
 	
 	/** Handles dodge input, tries to activate a Dodge Ability */
 	virtual void RequestDodge_Implementation() override;

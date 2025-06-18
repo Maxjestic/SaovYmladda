@@ -19,10 +19,13 @@ public:
 	FGameplayTag Abilities_Action_Jump;
 	FGameplayTag Abilities_Action_Dodge;
 
+	FGameplayTag Abilities_Attack_Light;
+
 
 	/** ---State Tags--- **/
 	FGameplayTag State_Character_InAction_Jumping;
 	FGameplayTag State_Character_InAction_Dodging;
+	FGameplayTag State_Character_InAction_Attacking;
 
 	FGameplayTag State_Resources_StaminaBlocked;
 

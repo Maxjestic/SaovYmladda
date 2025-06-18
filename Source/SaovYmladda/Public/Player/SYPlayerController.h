@@ -33,6 +33,9 @@ protected:
 	/// --- Input Handles ---
 
 	/** Called for dodge input */
+	void HandleAttack();
+
+	/** Called for dodge input */
 	void HandleDodge();
 
 	/** Called for jump input */
@@ -50,6 +53,10 @@ protected:
 	/** Input Mapping Context to be used for player input. */
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input" )
 	TObjectPtr<UInputMappingContext> DefaultMappingContext;
+
+	/** Input Action for attack. */
+	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input|Actions" )
+	TObjectPtr<UInputAction> AttackAction;
 
 	/** Input Action for dodging. */
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input|Actions" )

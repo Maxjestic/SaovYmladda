@@ -24,6 +24,10 @@ class SAOVYMLADDA_API IPlayerInputReceiverInterface
 	GENERATED_BODY()
 
 public:
+	/** Handles the attack input action. Called from the Player Controller. */
+	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
+	void RequestAttack();
+	
 	/** Handles the dodge input action. Called from the Player Controller. */
 	UFUNCTION( BlueprintNativeEvent, Category = "Player Input" )
 	void RequestDodge();

@@ -48,13 +48,12 @@ void ASYPlayerController::SetupInputComponent()
 		        TEXT("ASYPlayerController::SetupInputComponent - Failed to cast to UEnhancedInputComponent.") );
 		return;
 	}
-
-	if ( JumpAction )
+	if ( AttackAction )
 	{
-		EnhancedInputComponent->BindAction( JumpAction,
+		EnhancedInputComponent->BindAction( AttackAction,
 		                                    ETriggerEvent::Triggered,
 		                                    this,
-		                                    &ASYPlayerController::HandleJump );
+		                                    &ASYPlayerController::HandleAttack );
 	}
 	if ( DodgeAction )
 	{
@@ -62,6 +61,13 @@ void ASYPlayerController::SetupInputComponent()
 		                                    ETriggerEvent::Triggered,
 		                                    this,
 		                                    &ASYPlayerController::HandleDodge );
+	}
+	if ( JumpAction )
+	{
+		EnhancedInputComponent->BindAction( JumpAction,
+											ETriggerEvent::Triggered,
+											this,
+											&ASYPlayerController::HandleJump );
 	}
 	if ( LookAction )
 	{
@@ -76,6 +82,16 @@ void ASYPlayerController::SetupInputComponent()
 		                                    ETriggerEvent::Triggered,
 		                                    this,
 		                                    &ASYPlayerController::HandleMove );
+	}
+}
+
+void ASYPlayerController::HandleAttack()
+{
+	APawn* ControlledPawn = GetPawn();
+	if ( ControlledPawn && ControlledPawn->GetClass()->ImplementsInterface(
+		UPlayerInputReceiverInterface::StaticClass() ) )
+	{
+		IPlayerInputReceiverInterface::Execute_RequestAttack( ControlledPawn );
 	}
 }
 

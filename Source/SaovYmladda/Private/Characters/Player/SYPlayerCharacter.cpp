@@ -39,6 +39,19 @@ void ASYPlayerCharacter::PossessedBy( AController* NewController )
 	AddDefaultAbilities();
 }
 
+void ASYPlayerCharacter::RequestAttack_Implementation()
+{
+	const FGameplayTag DodgeAbilityTag = FSYGameplayTags::Get().Abilities_Attack_Light;
+	const FGameplayTagContainer GameplayTags( DodgeAbilityTag );
+	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Attack." );			
+		}
+	}
+}
+
 void ASYPlayerCharacter::RequestDodge_Implementation()
 {
 	// TODO: Limit to combat

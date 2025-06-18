@@ -22,6 +22,11 @@ void FSYGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Abilities_Action_Dodge = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName( "Abilities.Action.Dodge" ),
 		FString( "Dodge Ability Tag" ) );
+	
+	
+	GameplayTags.Abilities_Attack_Light = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName( "Abilities.Attack.Light" ),
+		FString( "Light Attack Ability Tag" ) );
 
 
 	/** ---State Tags--- **/
@@ -34,6 +39,11 @@ void FSYGameplayTags::InitializeNativeGameplayTags()
 		FName( "State.Character.InAction.Dodging" ),
 		FString( "Tag added when the character is dodging" ) );
 
+	GameplayTags.State_Character_InAction_Attacking = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName( "State.Character.InAction.Attacking" ),
+		FString( "Tag added when the character is attacking" ) );
+
+	
 	GameplayTags.State_Resources_StaminaBlocked = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName( "State.Resources.StaminaBlocked" ),
 		FString( "Tag preventing regeneration of Stamina" ) );
