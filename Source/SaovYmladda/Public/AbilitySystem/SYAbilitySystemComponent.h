@@ -19,7 +19,14 @@ class SAOVYMLADDA_API USYAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	/**
 	 * Grants default abilities to the owner of ASC.
-	 * @param DefaultAbilities - abilities that will be granted
+	 * @param DefaultAbilities - abilities that will be granted.
 	 */
 	void AddDefaultAbilities( const TArray<TSubclassOf<UGameplayAbility>>& DefaultAbilities );
+
+	/**
+	 * Tries to activate ability with given tag.
+	 * @param GameplayTag - Gameplay Tag associated with ability.
+	 * @return true if ability was activated.
+	 */
+	bool TryActivateAbilityByGameplayTag( const FGameplayTag& GameplayTag );
 };

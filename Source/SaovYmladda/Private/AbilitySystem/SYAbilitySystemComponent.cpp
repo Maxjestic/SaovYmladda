@@ -13,3 +13,18 @@ void USYAbilitySystemComponent::AddDefaultAbilities( const TArray<TSubclassOf<UG
 		GiveAbility( AbilitySpec );
 	}
 }
+
+bool USYAbilitySystemComponent::TryActivateAbilityByGameplayTag( const FGameplayTag& GameplayTag )
+{
+	//TODO: It should be made using AbilityInputPressed method
+	const FGameplayTagContainer GameplayTags( GameplayTag );
+	if (!TryActivateAbilitiesByTag( GameplayTags ))
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate ability with tag" + GameplayTag.ToString() );			
+		}
+		return false;
+	}
+	return true;
+}

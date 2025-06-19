@@ -5,6 +5,7 @@
 
 #include "AbilitySystemComponent.h"
 #include "InputActionValue.h"
+#include "AbilitySystem/SYAbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Core/FSYGameplayTags.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -40,29 +41,19 @@ void ASYPlayerCharacter::PossessedBy( AController* NewController )
 }
 
 void ASYPlayerCharacter::RequestAttack_Implementation()
-{
-	const FGameplayTag DodgeAbilityTag = FSYGameplayTags::Get().Abilities_Attack_Light;
-	const FGameplayTagContainer GameplayTags( DodgeAbilityTag );
-	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+{	
+	if (USYAbilitySystemComponent* ASC = Cast<USYAbilitySystemComponent>(AbilitySystemComponent))
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Attack." );			
-		}
+		ASC->TryActivateAbilityByGameplayTag( FSYGameplayTags::Get().Abilities_Attack_Light );
 	}
 }
 
 void ASYPlayerCharacter::RequestDodge_Implementation()
 {
 	// TODO: Limit to combat
-	const FGameplayTag DodgeAbilityTag = FSYGameplayTags::Get().Abilities_Action_Dodge;
-	const FGameplayTagContainer GameplayTags( DodgeAbilityTag );
-	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+	if (USYAbilitySystemComponent* ASC = Cast<USYAbilitySystemComponent>(AbilitySystemComponent))
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Dodge." );			
-		}
+		ASC->TryActivateAbilityByGameplayTag( FSYGameplayTags::Get().Abilities_Action_Dodge );
 	}
 }
 
@@ -71,14 +62,9 @@ void ASYPlayerCharacter::RequestJump_Implementation()
 	// TODO: Roll if in combat
 
 	// Jump if not in combat
-	const FGameplayTag JumpAbilityTag = FSYGameplayTags::Get().Abilities_Action_Jump;
-	const FGameplayTagContainer GameplayTags( JumpAbilityTag );
-	if (!AbilitySystemComponent->TryActivateAbilitiesByTag( GameplayTags ))
+	if (USYAbilitySystemComponent* ASC = Cast<USYAbilitySystemComponent>(AbilitySystemComponent))
 	{
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage( 1, 2, FColor::Yellow, "Failed to activate Jump." );			
-		}
+		ASC->TryActivateAbilityByGameplayTag( FSYGameplayTags::Get().Abilities_Action_Jump );
 	}
 }
 
