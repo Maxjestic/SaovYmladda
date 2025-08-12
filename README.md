@@ -7,7 +7,9 @@
 
 `Saov (aep) Ymladda` (Elder Speech for "Spirit of the Combat") is a portfolio project demonstrating advanced C++ and Unreal Engine skills. The goal is to create a polished, feature-rich combat system inspired by modern action RPGs like *The Witcher 3* and the *Souls* series. This project is built from the ground up to showcase core gameplay programming, AI development, and systems design.
 
-## 🎯 Key Features
+*Project Status: In Development* 🚧
+
+## 🎯 Key Features Goals
 
 * **Gameplay Ability System (GAS) ⚡:** The entire combat framework is built on Epic's powerful and flexible Gameplay Ability System for handling abilities, attributes, and effects.
 * **Dynamic Melee Combat ⚔️:** A combo-based melee system with light and heavy attacks.
@@ -26,14 +28,3 @@
     * Behavior Trees
     * Environment Query System (EQS)
     * Control Rig (for animation)
-
-## 🚀 How to Set Up and Run
-
-1.  Clone the repository to your local machine.
-2.  Right-click the `SaovYmladda.uproject` file and select **Generate Visual Studio project files**. (This step is necessary even if you are using Rider, as it sets up the core project solution).
-3.  Open the generated `.sln` file in Rider or Visual Studio.
-4.  Build the project by compiling the `SaovYmladda` module.
-5.  Open the `.uproject` file in the Unreal Editor and press Play.
-
----
-*Project Status: In Development* 🚧
